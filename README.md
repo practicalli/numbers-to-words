@@ -48,3 +48,40 @@ Please pay attention to the specific conventions of British English, particularl
 
 ●The solution is not expected to involve a command line or GUI application
 – we’re looking for a Clojure library that could be packaged as a jar andused in a larger application.
+
+
+## Analysis of the problem statement
+
+### Notes
+* the British English words are all lower case, no capitalisation is required for the start of each sentence.
+
+
+### Initial thoughts for a solution
+
+Taking a simplest set first approach:
+
+#### Convert each word to a string using a simple lookup
+
+Define a dictionary that maps numbers 0 to 9 to their word equivalents.
+
+
+#### Insert the number scales in the correct places
+
+Insert `hundred`, `thousand`, and `million` number scale names into the words.
+
+> Wondering if this needs to be done first or at least at the same time as converting from numbers to strings.
+
+
+#### Insert the correct grammar into the words (and)
+
+Parse a collection of words inserting `and` at the appropriate point in the sentence.  The rules seem to be positional, so we can just process the word strings for the correct places to insert `and`.
+
+The rules seem to be:
+- numbers between 101 and 999 have and after the first number (or before the last two numbers).
+- the above rule should be applied all at each number scale for numbers larger than 1001
+
+
+
+## Interesting functions to consider
+
+`partition` will group consistently and provide an simple way to insert new strings into the right parts of the words.
