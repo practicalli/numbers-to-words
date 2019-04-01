@@ -1,6 +1,6 @@
 (ns word-conversion.core)
 
-(defn foo
+(defn number->british-english
   "I don't do a whole lot."
   [x]
-  (println x "Hello, World!"))
+  "zero")
