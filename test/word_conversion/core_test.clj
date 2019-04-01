@@ -9,4 +9,4 @@
    strings containing British English words as a sentence"
 
   (testing "Sample data tests"
-    (is (= (sut/number->british-english 0) "zero"))))
+    (is (= (sut/number->word 0) "zero"))))

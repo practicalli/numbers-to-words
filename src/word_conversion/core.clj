@@ -1,6 +1,9 @@
 (ns word-conversion.core)
 
-(defn number->british-english
-  "I don't do a whole lot."
-  [x]
+(defn number->word
+  "Converts a numeric whole number into a word representation
+  Returns java.lang.string"
+
+  [number]
+
   "zero")
