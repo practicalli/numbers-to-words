@@ -81,6 +81,25 @@ The rules seem to be:
 - the above rule should be applied all at each number scale for numbers larger than 1001
 
 
+### Additional thoughts ###
+
+#### Splitting up a number into digits ####
+
+How can we split up a number into its digits?  Unlike string, a number is not seen as a collection.  We can convert each number to a string, this would allow us to split the number into individual digits, although if using clojure.core functions then the string will be treated as a collection of characters.  Can we convert characters back to numbers (should we need to)?  Strings can be converted back to numbers easily with the `java.lang.Integer` class.
+
+If we use strings or characters in our dictionary lookup, then we don't need to convert back.
+
+Some experiments in partitioning are in the design journal.
+
+
+#### replace each number with its whole value ####
+
+If we took each digit in the original number and converted it to its representative number in terms of position, then the dictionary lookup becomes much simpler.
+
+For example, if the original number is 12345, then we would first generate a sequence of `[10000 2000 300 40 5]`.
+
+This approach seems to be pretty obvious now I thought about it.
+
 
 ## Interesting functions to consider
 
