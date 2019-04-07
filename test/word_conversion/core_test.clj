@@ -9,8 +9,8 @@
    strings containing British English words as a sentence"
 
   (testing "Sample data tests - single values"
-    (is (= (sut/number->word 0 sut/british-english-numbers) "zero"))
-    (is (= (sut/number->word 1 sut/british-english-numbers) "one")))
+    (is (= "zero" (sut/digit->word 0 sut/british-english-numbers)))
+    (is (= "one"  (sut/digit->word 1 sut/british-english-numbers))))
 
   (testing "Sample data tests - double figure values"
     (is (= (sut/number->word 21 sut/british-english-numbers) "twenty one"))))
