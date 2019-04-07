@@ -13,21 +13,14 @@
   (get dictionary digit))
 
 
-(defn positional-numbers
-  "Converts a numeric whole number into a sequence of numbers,
-  representing the positional level of each number.
+(defn positional-number-string
+  "Round a number down to its positional number level.
 
-  Example:
-  (positional-numbers 12345)
-  ;;=> [10000 2000 300 40 5]
-
-  Arguments: Integer or Long number
-  Returns: vector"
-
-  [number]
-  (let [string-number (str number)]
-    (for [digit string-number]
-      [(Integer. (str digit))])))
+  Examples: 2345 becomes 2000"
+  [number-string]
+  (apply str
+         (cons (first number-string)
+               (map (constantly "0") (rest number-string)))))
 
 
 
