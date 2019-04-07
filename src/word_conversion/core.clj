@@ -148,7 +148,7 @@
            (cons (first number-string)
                  (map (constantly "0") (rest number-string)))))
 
-#_(defn word-sequence
+#_(defn number-sequence
     "Convert a number into a sequence of numbers that also represent the
   number level"
     [number]
@@ -161,12 +161,12 @@
                (conj sequence-of-numbers
                      (rounded-number-string current-string))))))
 
-#_(word-sequence 23456)
+#_(number-sequence 23456)
 ;; => ["20000" "3000" "400" "50" "6"]
 
 ;; If called with a negative number, the function should return an error
 
-#_(word-sequence -1)
+#_(number-sequence -1)
 ;; java.lang.AssertionError
 ;; Assert failed: (<= 0 number)
 
@@ -178,29 +178,29 @@
 ;; as they would not be pronounced
 ;; would need to add a check for a single number in a sequence that is zero
 
-#_(defn clean-word-sequence
+#_(defn clean-number-sequence
     "All number strings should start with something other than zero"
     [number-string]
     (filter #(not= \0 (first %)) number-string))
-;; => #'word-conversion.core/clean-word-sequence
+;; => #'word-conversion.core/clean-number-sequence
 
-#_(word-sequence 1024)
+#_(number-sequence 1024)
 ;; => ["1000" "000" "20" "4"]
 
-#_(clean-word-sequence (word-sequence 1024))
+#_(clean-number-sequence (number-sequence 1024))
 ;; => ("1000" "20" "4")
 
 
 ;; Add some defensive coding for a single zero sequence
-#_(defn clean-word-sequence
+#_(defn clean-number-sequence
     "All number strings should start with something other than zero"
     [number-string]
     (if (= ["0"] number-string)
       ["0"]
       (filter #(not= \0 (first %)) number-string)))
-;; => #'word-conversion.core/clean-word-sequence
+;; => #'word-conversion.core/clean-number-sequence
 
-#_(clean-word-sequence ["0"])
+#_(clean-number-sequence ["0"])
 ;; => ["0"]
 
 
