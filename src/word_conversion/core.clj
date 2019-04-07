@@ -24,12 +24,24 @@
 
 
 (defn number-sequence
-  "Convert a number into a sequence of numbers that also represent their
-  number level"
+  "Convert a number into a sequence of numbers that also represent the
+    number level
+
+  Arguments: Integer or Long
+  Return: Vector of strings"
+
   [number]
 
-  []
-  )
+  {:pre [(<= 0 number)]} ; Exception if function called with negative number
+
+  (loop [current-string      (str number)
+         sequence-of-numbers []]
+    (if (empty? current-string)
+      sequence-of-numbers
+      (recur (rest current-string)
+             (conj sequence-of-numbers
+                   (positional-number-string current-string))))))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
