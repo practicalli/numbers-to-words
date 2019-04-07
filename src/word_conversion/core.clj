@@ -57,6 +57,16 @@
                    (positional-number-string current-string))))))
 
 
+(defn word-sequence
+  "Convert numbers in a sequence to their corresponding words, using a dictionary
+
+  Arguments: dictionary lookup table (hash-map), sequence of integer/long numbers
+  Return: sequence of words (vector of strings)"
+  [dictionary number-sequence]
+
+  ["Word" "Sequence"])
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; REPL design journal

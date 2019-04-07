@@ -18,5 +18,11 @@
   (testing "Generating sequences of numbers with positional number level"
     (is (= ["20" "1"]   (sut/number-sequence 21)))
     (is (= ["2000"]     (sut/number-sequence 2000)))
-    (is (= ["2000" "1"] (sut/number-sequence 2001)))))
+    (is (= ["2000" "1"] (sut/number-sequence 2001))))
+
+  (testing "Convert sequences of numbers to words"
+    (is (= ["zero"]         (sut/word-sequence 0)))
+    (is (= ["one"]          (sut/word-sequence 1)))
+    (is (= ["twenty"]       (sut/word-sequence 20)))
+    (is (= ["twenty" "one"] (sut/word-sequence 21)))))
 
