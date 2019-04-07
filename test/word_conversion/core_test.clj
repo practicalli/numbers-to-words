@@ -13,4 +13,4 @@
     (is (= "one"  (sut/digit->word 1 sut/british-english-numbers))))
 
   (testing "Sample data tests - double figure values"
-    (is (= (sut/number->word 21 sut/british-english-numbers) "twenty one"))))
+    (is (= [20 1] (sut/positional-numbers 21)))))

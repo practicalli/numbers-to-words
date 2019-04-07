@@ -13,6 +13,21 @@
   (get dictionary digit))
 
 
+(defn positional-numbers
+  "Converts a numeric whole number into a sequence of numbers,
+  representing the positional level of each number.
+
+  Example:
+  (positional-numbers 12345)
+  ;;=> [10000 2000 300 40 5]
+
+  Arguments: Integer or Long number
+  Returns: vector"
+
+  [number]
+
+  []
+  )
 
 
 
