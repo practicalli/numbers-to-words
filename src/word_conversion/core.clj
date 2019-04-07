@@ -159,6 +159,37 @@
 ;; Limitation
 ;; there is a bit of a gotcha in that if there is a zero value part way through a number,
 ;; then we would get 00 000 0000 etc.
+
+;; We can just filter out all numbers that start with a zero,
+;; as they would not be pronounced
+;; would need to add a check for a single number in a sequence that is zero
+
+#_(defn clean-word-sequence
+    "All number strings should start with something other than zero"
+    [number-string]
+    (filter #(not= \0 (first %)) number-string))
+;; => #'word-conversion.core/clean-word-sequence
+
+#_(word-sequence 1024)
+;; => ["1000" "000" "20" "4"]
+
+#_(clean-word-sequence (word-sequence 1024))
+;; => ("1000" "20" "4")
+
+
+;; Add some defensive coding for a single zero sequence
+#_(defn clean-word-sequence
+    "All number strings should start with something other than zero"
+    [number-string]
+    (if (= ["0"] number-string)
+      ["0"]
+      (filter #(not= \0 (first %)) number-string)))
+;; => #'word-conversion.core/clean-word-sequence
+
+#_(clean-word-sequence ["0"])
+;; => ["0"]
+
+
 ;;;;;;;;;;;;;
 
 ;; zero to nine
