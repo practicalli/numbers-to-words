@@ -25,9 +25,9 @@
   Returns: vector"
 
   [number]
-
-  []
-  )
+  (let [string-number (str number)]
+    (for [digit string-number]
+      [(Integer. (str digit))])))
 
 
 
@@ -40,6 +40,13 @@
 #_(digit->word 0 british-english-numbers)
 
 
+;; Splitting up a number into individual parts
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; We cant partition a number so lets change it to a string.  A string is a collection of chars after all.
+
+;; convert to a string
+#_(str 24)
+;; => "24"
 
 
 
