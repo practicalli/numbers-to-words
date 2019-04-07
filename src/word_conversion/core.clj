@@ -23,6 +23,20 @@
                (map (constantly "0") (rest number-string)))))
 
 
+(defn clean-word-sequence
+  "All number strings that are pronounced start with something other than zero.
+  All zero numbers are removed, except where zero is the only value in the sequence.
+
+  Arguments: Vector of positional numbers as strings
+  Return: Vector of positional numbers as strings"
+
+  [number-string]
+
+  (if (= ["0"] number-string)
+    ["0"]
+    (filter #(not= \0 (first %)) number-string)))
+
+
 (defn number-sequence
   "Convert a number into a sequence of numbers that also represent the
     number level
@@ -37,7 +51,7 @@
   (loop [current-string      (str number)
          sequence-of-numbers []]
     (if (empty? current-string)
-      sequence-of-numbers
+      (clean-word-sequence sequence-of-numbers)
       (recur (rest current-string)
              (conj sequence-of-numbers
                    (positional-number-string current-string))))))
