@@ -113,11 +113,40 @@
          (cons (first "2345") (map (constantly "0") (rest "2345"))))
 ;; => "2000"
 
+#_(defn rounded-number-string
+    "Round a number down to its number level.
 
+  Examples: 2345 becomes 2000"
+    [number-string]
+    (apply str
+           (cons (first number-string)
+                 (map (constantly "0") (rest number-string)))))
 
+#_(defn word-sequence
+    "Convert a number into a sequence of numbers that also represent the
+  number level"
+    [number]
+    {:pre [(<= 0 number)]}
+    (loop [current-string      (str number)
+           sequence-of-numbers []]
+      (if (empty? current-string)
+        sequence-of-numbers
+        (recur (rest current-string)
+               (conj sequence-of-numbers
+                     (rounded-number-string current-string))))))
 
+#_(word-sequence 23456)
+;; => ["20000" "3000" "400" "50" "6"]
 
-;; different approaches to dictionaries
+;; If called with a negative number, the function should return an error
+
+#_(word-sequence -1)
+;; java.lang.AssertionError
+;; Assert failed: (<= 0 number)
+
+;; Limitation
+;; there is a bit of a gotcha in that if there is a zero value part way through a number,
+;; then we would get 00 000 0000 etc.
 ;;;;;;;;;;;;;
 
 ;; zero to nine
