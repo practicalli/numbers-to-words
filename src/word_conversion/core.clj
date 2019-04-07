@@ -204,28 +204,70 @@
 ;; => ["0"]
 
 
+;; defining dictionaries
 ;;;;;;;;;;;;;
 
 ;; zero to nine
+#_(def single-digit
+    {"0" "zero"
+     "1" "one"
+     "2" "two"
+     "3" "three"
+     "4" "four"
+     "5" "five"
+     "6" "six"
+     "7" "seven"
+     "8" "eight"
+     "9" "nine"})
+
+#_(def teens
+    {"11" "eleven"
+     "12" "twelve"
+     "13" "thirteen"
+     "14" "fourteen"
+     "15" "fifteen"
+     "16" "sixteen"
+     "17" "seventeen"
+     "18" "eighteen"
+     "19" "nineteen"})
 
 ;; tens
+#_(def tens
+    {"10" "ten"
+     "20" "twenty"
+     "30" "thirty"
+     "40" "forty"
+     "50" "fifty"
+     "60" "sixty"
+     "70" "seventy"
+     "80" "eighty"
+     "90" "ninety"})
 
-;; hundreds
-
-;; thousands
-
-;; millions
-
+;; hundreds, thousands and millions - no difference in numbers,
+;; simply add level as postfix
 
 ;; create a sequential list of number levels
+#_(def number-levels
+    "List of number levels."
+    ["hundred" "thousand" "million" "billion" "trillion"])
 
-;; use the number levels for groups of three numbers
-(def number-levels
-  "List of number levels.  "
-  ["hundred" "thousand" "million" "billion" "trillion"])
 
-(def number-levels
-  {2 ["two" "twenty" "two hundred" "two thousand" "two hundred thousand" "two million"]})
+;; Alternative idea:
+;; seems like many more combinations will need to be defined within dictionaries.
+#_(def number-levels
+    {2 ["two" "twenty" "two hundred" "two thousand" "two hundred thousand" "two million"]})
+
+#_(def number-word-dictionary
+    (merge single-digit teens tens))
+
+
+#_(map #(get number-word-dictionary %) (word-sequence 42))
+;; => ("forty" "two")
+
+
+#_(map #(get number-word-dictionary %) (word-sequence 2))
+;; => ("two")
+
 
 (defn number-level->word
   [number number-levels]
