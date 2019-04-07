@@ -48,53 +48,70 @@
 #_(str 24)
 ;; => "24"
 
-
-
-;; Splitting up a number into individual parts
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; We cant partition a number
-(partition 1 222)
-
-;; We cant count a number
-#_(count 222)
-
-;; If we cant partition a number, lets change it to a string.  A string is a collection of chars after all.
-
-;; so we can partition a string
-
-(partition 1 "1234")
+#_(partition 1 "1234")
 ;; => ((\1) (\2) (\3) (\4))
 
 
+;; Using for just splits to individual words
+#_(defn partition-number
+    [numbers]
+    (for [number numbers]
+      [(Integer. (str number))]))
 
-(map Integer.
-     (partition 1 "1234"))
-
-(map #(Integer. %)
-     (partition 1 "1234"))
-
-
-(Integer. "42")
-;; => 42
-
-;; integer doesnt work with a character
-(Integer. \1)
-
-
-(map str
-     (partition 1 "1234"))
-;; => ("clojure.lang.LazySeq@50" "clojure.lang.LazySeq@51" "clojure.lang.LazySeq@52" "clojure.lang.LazySeq@53")
-
-(apply str
-       (partition 1 "1234"));; => "clojure.lang.LazySeq@50clojure.lang.LazySeq@51clojure.lang.LazySeq@52clojure.lang.LazySeq@53"
-
-(defn partition-number
-  [numbers]
-  (for [number numbers]
-    [(Integer. (str number))]))
-
-(partition-number "1234")
+#_(partition-number "1234")
 ;; => ([1] [2] [3] [4])
+
+
+;; create a sequence of strings representing numbers
+#_(clojure.string/split "24" #"")
+;; => ["2" "4"]
+
+;; We loose some of the sense of number level though.
+;; Is 2 the value two or is it twenty?
+;; We would need to track where we are in the sequence, relative to the end
+
+;; recursive function to create a sequence of positional numbers
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; get the first value
+;; map (constantly 0) over the rest
+;; conjoin
+;; recur...
+
+#_(defn positional-numbers-recursive
+    [numbers]
+    (let [string-numbers (str numbers)]
+      (conj
+        (map (constantly 0) (rest string-numbers))
+        (first string-numbers))))
+
+#_(positional-numbers-recursive 21)
+;; => (\2 0)
+
+;; still not quite the right format
+
+#_(conj (first "2345") (map (constantly "0") (rest "2345")))
+
+
+#_(map (constantly "0") (rest "2345"))
+;; => ("0" "0" "0")
+
+
+
+#_(mapcat (constantly "0") (rest "2345"))
+;; => (\0 \0 \0)
+
+
+#_(merge [] (first "2345") (map (constantly "0") (rest "2345")))
+;; => [\2 ("0" "0" "0")]
+
+
+#_(cons (first "2345") (map (constantly "0") (rest "2345")))
+;; => (\2 "0" "0" "0")
+
+#_(apply str
+         (cons (first "2345") (map (constantly "0") (rest "2345"))))
+;; => "2000"
+
 
 
 
