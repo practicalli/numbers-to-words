@@ -65,8 +65,7 @@
   Return: sequence of words (vector of strings)"
   [dictionary number-sequence]
 
-  ["Word" "Sequence"])
-
+  (map dictionary number-sequence))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
