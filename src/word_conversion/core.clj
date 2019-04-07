@@ -1,4 +1,5 @@
-(ns word-conversion.core)
+(ns word-conversion.core
+  (:require [word-conversion.dictionaries :refer [british-english-dictionary]]))
 
 (def british-english-numbers
   {0 "zero"
