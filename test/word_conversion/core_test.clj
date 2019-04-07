@@ -13,6 +13,10 @@
     (is (= "one"  (sut/digit->word 1 sut/british-english-numbers))))
 
   (testing "Sample data tests - double figure values"
-    (is (= "20" (sut/positional-number-string "21")))
-    (is (= ["20" "1"]   (sut/number-sequence 21)))))
+    (is (= "20" (sut/positional-number-string "21"))))
+
+  (testing "Generating sequences of numbers with positional number level"
+    (is (= ["20" "1"]   (sut/number-sequence 21)))
+    (is (= ["2000"]     (sut/number-sequence 200)))
+    (is (= ["2000" "1"] (sut/number-sequence 2001)))))
 
