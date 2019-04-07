@@ -23,6 +23,14 @@
                (map (constantly "0") (rest number-string)))))
 
 
+(defn number-sequence
+  "Convert a number into a sequence of numbers that also represent their
+  number level"
+  [number]
+
+  []
+  )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; REPL design journal
