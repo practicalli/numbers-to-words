@@ -1,6 +1,7 @@
 (ns word-conversion.core-test
   (:require [clojure.test :refer :all]
-            [word-conversion.core :as sut]))
+            [word-conversion.core :as sut]
+            [word-conversion.dictionaries :refer [british-english-dictionary]]))
 
 
 
@@ -21,8 +22,14 @@
     (is (= ["2000" "1"] (sut/number-sequence 2001))))
 
   (testing "Convert sequences of numbers to words"
-    (is (= ["zero"]         (sut/word-sequence 0)))
-    (is (= ["one"]          (sut/word-sequence 1)))
-    (is (= ["twenty"]       (sut/word-sequence 20)))
-    (is (= ["twenty" "one"] (sut/word-sequence 21)))))
+    (is (= ["zero"]
+           (sut/word-sequence british-english-dictionary ["0"])))
+    (is (= ["one"]
+           (sut/word-sequence british-english-dictionary ["1"])))
+    (is (= ["twenty"]
+           (sut/word-sequence british-english-dictionary ["20"])))
+    (is (= ["twenty" "one"]
+           (sut/word-sequence british-english-dictionary ["20" "1"])))
+    (is (= ["ninety" "nine"]
+           (sut/word-sequence british-english-dictionary ["90" "9"])))))
 
