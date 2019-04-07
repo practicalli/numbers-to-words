@@ -23,7 +23,7 @@
                (map (constantly "0") (rest number-string)))))
 
 
-(defn clean-word-sequence
+(defn clean-number-sequence
   "All number strings that are pronounced start with something other than zero.
   All zero numbers are removed, except where zero is the only value in the sequence.
 
@@ -51,7 +51,7 @@
   (loop [current-string      (str number)
          sequence-of-numbers []]
     (if (empty? current-string)
-      (clean-word-sequence sequence-of-numbers)
+      (clean-number-sequence sequence-of-numbers)
       (recur (rest current-string)
              (conj sequence-of-numbers
                    (positional-number-string current-string))))))
