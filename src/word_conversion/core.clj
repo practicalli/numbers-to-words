@@ -2,18 +2,6 @@
   (:require [word-conversion.dictionaries :refer [british-english-dictionary
                                                   number-levels]]))
 
-(def british-english-numbers
-  {0 "zero"
-   1 "one"})
-
-(defn digit->word
-  "Converts a numeric whole number (digit) into a word representation
-  Returns: java.lang.string"
-
-  [digit dictionary]
-
-  (get dictionary digit))
-
 
 (defn positional-number-string
   "Round a number down to its positional number level.
@@ -39,6 +27,22 @@
     (filter #(not= \0 (first %)) number-string)))
 
 
+
+;; Depreciated functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn digit->word
+  "Converts a numeric whole number (digit) into a word representation
+  Returns: java.lang.string"
+
+  ^:depreciated
+
+  [digit dictionary]
+
+  (get dictionary digit))
+
+
+
 (defn split-larger-numbers
   "Any number string larger than 99 should be split into its parts.
 
@@ -47,7 +51,10 @@
   Arguments: string (representing a number)
   Return: vector of one or more strings"
 
+  ^:depreciated
+
   [number-string]
+
   (let [size (count number-string)]
     (cond
       (> 3 size)  [number-string]
@@ -73,6 +80,7 @@
 
   Arguments: Integer or Long
   Return: Vector of strings"
+  ^:depreciated
 
   [number]
 
@@ -91,6 +99,7 @@
 
 (defn multiple-number-levels
   [number]
+  ^:depreciated
   (let [remainder (rem (count number) 3)
         levels    (quot (count number) 3)]
     (if (> 1 levels)
@@ -107,6 +116,9 @@
   Return: String (representing just the prefix value)"
 
   [number-string]
+
+  ^:depreciated
+
   (let [prefix (rem (count number-string) 3)
         levels (quot (count number-string) 3)]
 
@@ -133,6 +145,9 @@
 
   Arguments: dictionary lookup table (hash-map), sequence of integer/long numbers
   Return: sequence of words (vector of strings)"
+
+  ^:depreciated
+
   [dictionary number-sequence]
 
   (map (fn [positional-number]
