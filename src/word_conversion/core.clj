@@ -1,5 +1,6 @@
 (ns word-conversion.core
-  (:require [word-conversion.dictionaries :refer [british-english-dictionary]]))
+  (:require [word-conversion.dictionaries :refer [british-english-dictionary
+                                                  number-levels]]))
 
 (def british-english-numbers
   {0 "zero"
@@ -65,7 +66,14 @@
   Return: sequence of words (vector of strings)"
   [dictionary number-sequence]
 
-  (map dictionary number-sequence))
+  (map (fn [positional-number]
+         (if (<= (count positional-number) 2)
+           (get dictionary positional-number)
+           (str (get dictionary (str (first positional-number)))
+                " "
+                (get number-levels (count positional-number)))))
+       number-sequence))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -301,9 +309,9 @@
 ;; we can define a dictionary that is a lookup for number levels,
 ;; based on the string size
 
-(def number-levels
-  "List of number levels."
-  {3 "hundred" 4 "thousand" 6 "hundred thousand" 7 "million" 10 "billion" 13 "trillion"})
+#_(def number-levels
+    "List of number levels."
+    {3 "hundred" 4 "thousand" 6 "hundred thousand" 7 "million" 10 "billion" 13 "trillion"})
 
 
 (map (fn [positional-number]
@@ -367,6 +375,12 @@
   (apply str
          (take (rem (count number-string) 3) number-string)))
 
+(get-prefix-number "1")
+;; => "1"
+(get-prefix-number "10")
+;; => "10"
+(get-prefix-number "100")
+;; => ""
 (get-prefix-number "1000")
 ;; => "1"
 (get-prefix-number "10000")

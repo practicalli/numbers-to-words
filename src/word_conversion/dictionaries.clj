@@ -58,11 +58,14 @@
 
 ;; Generic Number levels
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; A sequential list of number levels
-;; hundreds, thousands and millions - no difference in numbers,
-;; simply add level as postfix
+;; A dictionary of number levels
+;; Indexed by the size of the number as a string
+;; 100 has 3 characters, 1000000 has 7 characters, etc.
+
+;; hundreds, thousands and millions all the same term regardless
+;; of prefix number (one thousand, two thousand, etc.)
+;; simply add number level as post-fix
 
 (def number-levels
-  "List of number levels which are all the same regardless of any prefix
-  number."
-  ["hundred" "thousand" "million" "billion" "trillion"])
+  "List of number levels."
+  {3 "hundred" 4 "thousand" 6 "hundred thousand" 7 "million" 10 "billion" 13 "trillion"})
