@@ -60,6 +60,16 @@
 
 
 
+
+(defn multiple-number-levels
+  [number]
+  (let [remainder (rem (count number) 3)
+        levels    (quot (count number) 3)]
+    (if (> 1 levels)
+      (apply str (take remainder number) (multiple-number-levels (drop remainder)))
+      number)))
+
+
 (defn get-prefix-number
   "Gets the prefix of a number without the number level.
 
@@ -69,11 +79,13 @@
   Return: String (representing just the prefix value)"
 
   [number-string]
+  (let [prefix (rem (count number-string) 3)
+        levels (quot (count number-string) 3)]
 
-  (if (<= (count number-string) 4)
-    (str (first number-string))
-    (apply str
-           (take (rem (count number-string) 3) number-string))))
+    (cond
+      (= prefix 0) (str (first number-string))
+      (> 1 levels) (multiple-number-levels number-string)
+      :else        (apply str (take prefix number-string)))))
 
 (get-prefix-number "1000")
 ;; => "1"
@@ -423,4 +435,91 @@
 ;; => "10"
 (get-prefix-number "100000000")
 ;; => ""
+
+;; Partitioning
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(clojure.string/reverse "1234567")
+;; => "7654321"
+
+(partition-all
+  3
+  (clojure.string/reverse "1234567"))
+;; => ((\7 \6 \5) (\4 \3 \2) (\1))
+
+(defn partition-string-number
+  [number-string]
+  (partition-all
+    3
+    (clojure.string/reverse number-string)))
+
+(partition-string-number "12001")
+;; => ((\1 \0 \0) (\2 \1))
+
+
+#_(partition-all 3 (word-sequence 1042))
+;; => (("1000" "000" "40") ("2"))
+
+
+;; seems like we need to reverse the sequence to partition correctly
+
+#_(reverse
+(word-sequence 1042))
+;; => ("2" "40" "000" "1000")
+
+#_(partition-all 3
+(reverse
+  (word-sequence 1042)))
+;; => (("2" "40" "000") ("1000"))
+
+#_(reverse
+(partition-all 3
+               (reverse
+                 (word-sequence 1042))))
+;; => (("1000") ("2" "40" "000"))
+
+;; a double reverse seems ugly and its also reversing the elements
+;; in each partition
+
+
+
+#_(count (word-sequence 1042))
+;; => 4
+
+#_(mod
+(count (word-sequence 1042))
+3)
+;; => 1
+
+
+#_(quot
+(count (word-sequence 1042))
+3)
+;; => 1
+
+#_(rem
+(count (word-sequence 1042))
+3)
+;; => 1
+
+
+
+#_(word-sequence 56945781)
+;; => ["50000000" "6000000" "900000" "40000" "5000" "700" "80" "1"]
+
+#_(partition-all 3
+(word-sequence 56945781))
+;; => (("50000000" "6000000" "900000") ("40000" "5000" "700") ("80" "1"))
+
+
+#_(quot
+(count (word-sequence 56945781))
+3)
+;; => 2
+
+#_(rem
+(count (word-sequence 56945781))
+3)
+;; => 2
+
 
