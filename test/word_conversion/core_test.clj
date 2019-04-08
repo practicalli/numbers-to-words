@@ -37,5 +37,9 @@
     (is (= ["one hundred" "one"]
            (sut/word-sequence british-english-dictionary ["100" "1"])))
     (is (= ["nine hundred" "ninety" "nine"]
-           (sut/word-sequence british-english-dictionary ["100" "1"])))))
+           (sut/word-sequence british-english-dictionary ["900" "90" "9"])))
+    (is (= ["one thousand"]
+           (sut/word-sequence british-english-dictionary ["1000"])))
+    (is (= ["one thousand" "one"]
+           (sut/word-sequence british-english-dictionary ["1000" "1"])))))
 
