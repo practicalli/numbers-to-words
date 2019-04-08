@@ -108,6 +108,19 @@
   (numbers->words british-english-dictionary (parse-number "12345")))
 ;; => ["twelve" "" "thousand" "" "three" "" "hundred" "and" "forty" "" "five" ""]
 
+
+(defn speak-number-as-words
+  [dictionary number]
+  (andify-sentence
+    (numbers->words dictionary (parse-number number))))
+
+#_(defn speak-number-as-words
+    [dictionary number]
+    (->> number
+         parse-number
+         (numbers->words dictionary)
+         andify-sentence))
+
 ;; Depreciated functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

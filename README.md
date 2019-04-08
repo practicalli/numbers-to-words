@@ -5,13 +5,22 @@ A Clojure library to convert numerical representation of whole numbers to Britis
 
 ## Usage
 
-As this is a library and does not include a user interface.  Open a REPL and load the namespace then evaluate the examples in the design journal section.
+As this is a library and does not include a user interface.  Open a REPL and load the namespace then evaluate the examples and experiment with the design journal section.
 
 ### Command Line / Terminal
 In a terminal window, change to the root of the `word-conversion` project and run the command `lein repl`.  Once the repl starts either include the project namespace in the current `user` namespace, using `(require 'word-conversion.core)`
 
 ### Clojure aware editors
 Or open this project in your favourite editor, run a repl and switch to the `word-conversion.core` namespace.
+
+### main function
+
+Use the `speak-number-as-words` to convert a number to a sentence that describes that word.  For example:
+
+```clojure
+(speak-number-as-words british-english-dictionary 1105)
+
+```
 
 ## License
 
