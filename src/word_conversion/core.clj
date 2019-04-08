@@ -315,6 +315,15 @@
      ["100"])
 
 
+(map (fn [positional-number]
+       (if (<= (count positional-number) 2)
+         (get british-english-dictionary positional-number)
+         (str (get british-english-dictionary (str (first positional-number)))
+              " "
+              (get number-levels (count positional-number)))))
+     ["100000"])
+;; => ("one hundred thousand")
+
 
 ;; solution so far does not work for 10,000
 ;; so we need to add more logic to capture this case
@@ -328,6 +337,46 @@
 ;; => ("one ")
 
 
-(defn number-level->word
-  [number number-levels]
-  (get number-levels number))
+(map (fn [positional-number]
+       (if (<= (count positional-number) 2)
+         (get british-english-dictionary positional-number)
+         (str (get british-english-dictionary (str (first positional-number)))
+              " "
+              (get number-levels (count positional-number)))))
+     ["10000"])
+
+
+;; get the number level
+;; 10000 => thousand
+
+;; drop those numbers that represent the number level
+;; 10000 => 10
+
+(apply str
+       (take (rem (count "10000") 3) "10000"))
+;; => "10"
+
+;; convert number after drop
+;; 10 => "ten"
+
+(defn get-prefix-number
+  "Gets the prefix of a number without the number level.
+
+  Number levels go up in groups of three, so "
+  [number-string]
+  (apply str
+         (take (rem (count number-string) 3) number-string)))
+
+(get-prefix-number "1000")
+;; => "1"
+(get-prefix-number "10000")
+;; => "10"
+(get-prefix-number "100000")
+;; => ""
+(get-prefix-number "1000000")
+;; => "1"
+(get-prefix-number "10000000")
+;; => "10"
+(get-prefix-number "100000000")
+;; => ""
+
