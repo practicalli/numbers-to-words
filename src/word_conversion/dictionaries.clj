@@ -80,3 +80,12 @@
 (def number-levels
   "List of number levels."
   {3 "hundred" 4 "thousand" 6 "hundred thousand" 7 "million" 10 "billion" 13 "trillion"})
+
+
+(def generic-number-levels
+  {"x00"           "hundred"
+   "x000"          "thousand"
+   "x000000"       "million"
+   "x000000000"    "billion"
+   "x000000000000" "trillion"})
+
