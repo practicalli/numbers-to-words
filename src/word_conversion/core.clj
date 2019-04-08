@@ -28,6 +28,41 @@
 
 
 
+(defn parse-number
+  "A rather brute force approach to parsing the sequence of numbers
+  create a representative sequence of numbers that can be readily converted
+  into words using a dictionary
+
+  Arguments: string (representing a number)
+  Return: A sequence of strings (representing )"
+
+  ^:abstract-me-please
+
+  [number-string]
+
+  (let [size (count number-string)]
+    (cond
+      (= 1 size)  [number-string]
+      (= 2 size)  (concat [(str (first number-string) "0")]
+                          (parse-number (rest-as-string number-string)))
+      (= 3 size)  (concat [(str (first number-string))"x00"]
+                          (parse-number (rest-as-string number-string)))
+      (= 4 size)  (concat [(str (first number-string))"x000" ]
+                          (parse-number (rest-as-string number-string)))
+      (= 5 size)  (concat [(apply str (take 2 number-string))  "x000"]
+                          (parse-number (apply str (drop 2 number-string))))
+      (= 6 size)  (concat [(str (first number-string)) "x00"]
+                          (parse-number (rest-as-string number-string)))
+      (= 7 size)  (concat [(str (first number-string)) "x000000"]
+                          (parse-number (rest-as-string number-string)))
+      (= 8 size)  (concat [(apply str (take 2 number-string)) "x000000"]
+                          (parse-number (apply str (drop 2 number-string))))
+      (= 9 size)  (concat [(str (first number-string)) "x00"]
+                          (parse-number (rest-as-string number-string)))
+      (= 10 size) (concat [(str (first number-string)) "x000000000"]
+                          (parse-number (rest-as-string number-string))))))
+
+
 ;; Depreciated functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -68,10 +103,6 @@
       (= 10 size) [(str (first number-string)) "x000000000"])))
 
 
-
-(defn parse-number
-  [number-string]
-  [])
 
 
 (defn number-sequence
