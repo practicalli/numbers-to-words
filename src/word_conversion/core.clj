@@ -259,7 +259,7 @@
 ;; create a sequential list of number levels
 #_(def number-levels
     "List of number levels."
-    ["hundred" "thousand" "million" "billion" "trillion"])
+    ["hundred" "thousand" "hundred thousand" "million" "billion" "trillion"])
 
 
 ;; Alternative idea:
@@ -277,6 +277,55 @@
 
 #_(map #(get number-word-dictionary %) (word-sequence 2))
 ;; => ("two")
+
+;; numbers larger than 100
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; If a number is larger than a hundred, we can just use the first digit
+;; as a word and post-fix with the relevant number level (hundred,
+;; thousand, etc.)
+
+#_(word-sequence 101)
+;; => ["100" "00" "1"]
+
+#_(clean-word-sequence
+    (word-sequence 101))
+;; => ("100" "1")
+
+;; If we count the number of digits in a stringified number,
+;; then we get a consistent number level.
+
+#_(count "200")
+;; => 3
+
+;; we can define a dictionary that is a lookup for number levels,
+;; based on the string size
+
+(def number-levels
+  "List of number levels."
+  {3 "hundred" 4 "thousand" 6 "hundred thousand" 7 "million" 10 "billion" 13 "trillion"})
+
+
+(map (fn [positional-number]
+       (if (<= (count positional-number) 2)
+         (get british-english-dictionary positional-number)
+         (str (get british-english-dictionary (str (first positional-number)))
+              " "
+              (get number-levels (count positional-number)))))
+     ["100"])
+
+
+
+;; solution so far does not work for 10,000
+;; so we need to add more logic to capture this case
+(map (fn [positional-number]
+       (if (<= (count positional-number) 2)
+         (get british-english-dictionary positional-number)
+         (str (get british-english-dictionary (str (first positional-number)))
+              " "
+              (get number-levels (count positional-number)))))
+     ["10000"])
+;; => ("one ")
 
 
 (defn number-level->word
