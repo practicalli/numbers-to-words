@@ -31,5 +31,11 @@
     (is (= ["twenty" "one"]
            (sut/word-sequence british-english-dictionary ["20" "1"])))
     (is (= ["ninety" "nine"]
-           (sut/word-sequence british-english-dictionary ["90" "9"])))))
+           (sut/word-sequence british-english-dictionary ["90" "9"])))
+    (is (= ["one hundred"]
+           (sut/word-sequence british-english-dictionary ["100"])))
+    (is (= ["one hundred" "one"]
+           (sut/word-sequence british-english-dictionary ["100" "1"])))
+    (is (= ["nine hundred" "ninety" "nine"]
+           (sut/word-sequence british-english-dictionary ["100" "1"])))))
 
