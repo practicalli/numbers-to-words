@@ -79,6 +79,35 @@
   (map dictionary number-sequence))
 
 
+
+(defn andify-sentence
+  "Correct the grammar of the words as a sentence, by placing `and` in
+  the sentence.  `and` is inserted after every occurance of `hundred`
+  if it is followed by another number
+
+  Example: [one hundred one] becomes [one hundred and one]
+
+  Arguments: vector of strings (representing a sequence of words)
+  Return: vector of strings (as above but with grammar corrections)"
+
+  [word-sequence]
+
+  (loop [sequence     word-sequence
+         and-sequence []]
+    (if (empty? sequence)
+      and-sequence
+      (recur (rest sequence)
+             (conj and-sequence
+                   (first sequence)
+                   (if (and (= (first sequence) "hundred")
+                            (not (nil? (second sequence))))
+                     "and"
+                     ""))))))
+
+(andify-sentence
+  (numbers->words british-english-dictionary (parse-number "12345")))
+;; => ["twelve" "" "thousand" "" "three" "" "hundred" "and" "forty" "" "five" ""]
+
 ;; Depreciated functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
