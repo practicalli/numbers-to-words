@@ -68,6 +68,17 @@
                           (parse-number (rest-as-string number-string))))))
 
 
+(defn numbers->words
+  "Convert a sequence of numbers to their word equivalents in a given
+  dictionary
+
+  Arguments: hash-map dictionary, vector of strings (representing numbers)"
+
+  [dictionary number-sequence]
+
+  (map dictionary number-sequence))
+
+
 ;; Depreciated functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
