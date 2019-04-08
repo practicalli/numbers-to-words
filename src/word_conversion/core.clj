@@ -7,7 +7,9 @@
   "Round a number down to its positional number level.
 
   Examples: 2345 becomes 2000"
+
   [number-string]
+
   (apply str
          (cons (first number-string)
                (map (constantly "0") (rest number-string)))))
@@ -120,6 +122,7 @@
          parse-number
          (numbers->words dictionary)
          andify-sentence))
+
 
 ;; Depreciated functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

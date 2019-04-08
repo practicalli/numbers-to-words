@@ -10,6 +10,10 @@
 
 (ns word-conversion.dictionaries)
 
+(def british-english-numbers
+  {0 "zero"
+   1 "one"})
+
 ;; Specific number lookups
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -89,3 +93,9 @@
    "x000000000"    "billion"
    "x000000000000" "trillion"})
 
+
+;; Basic error warnings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def invalid-number
+  {"-1" "Computer says no!"})
