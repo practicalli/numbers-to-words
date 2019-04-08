@@ -39,6 +39,27 @@
     (filter #(not= \0 (first %)) number-string)))
 
 
+(defn split-larger-numbers
+  "Any number string larger than 99 should be split into its parts.
+
+  For example: 200 should be [2 x00], 2000 should be [2 x000]
+
+  Arguments: string (representing a number)
+  Return: vector of one or more strings"
+
+  [number-string]
+  (let [size (count number-string)]
+    (cond
+      (> 3 size)  [number-string]
+      (= 3 size)  [(str (first number-string))"x00"]
+      (= 4 size)  [(str (first number-string))"x000"]
+      (= 5 size)  [(apply str (take 2 number-string))  "x000"]
+      (= 6 size)  [(str (first number-string)) "x00" "x000"]
+      (= 7 size)  [(str (first number-string)) "x000000"]
+      (= 8 size)  [(apply str (take 2 number-string)) "x000000"]
+      (= 9 size)  [(str (first number-string)) "x00 x000000"]
+      (= 10 size) [(str (first number-string)) "x000000000"])))
+
 (defn number-sequence
   "Convert a number into a sequence of numbers that also represent the
     number level
