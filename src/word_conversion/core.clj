@@ -59,6 +59,35 @@
                    (positional-number-string current-string))))))
 
 
+
+(defn get-prefix-number
+  "Gets the prefix of a number without the number level.
+
+  Number levels go up in groups of three, so 1000 returns 1, 10000 returns 10.
+
+  Arguments: String (representing a number with its positional number level)
+  Return: String (representing just the prefix value)"
+
+  [number-string]
+
+  (if (<= (count number-string) 4)
+    (str (first number-string))
+    (apply str
+           (take (rem (count number-string) 3) number-string))))
+
+(get-prefix-number "1000")
+;; => "1"
+(get-prefix-number "10000")
+;; => "10"
+(get-prefix-number "100000")
+;; => "1"
+
+;; if
+;; 100 = 1
+;; 1000 = 1
+;; 10,000 = 10
+;; 100,000 = 100
+;; 1,000,000 = 1
 (defn word-sequence
   "Convert numbers in a sequence to their corresponding words, using a dictionary
 
@@ -67,12 +96,13 @@
   [dictionary number-sequence]
 
   (map (fn [positional-number]
-         (if (<= (count positional-number) 2)
+         (if (<= (count positional-number) 3)
            (get dictionary positional-number)
-           (str (get dictionary (str (first positional-number)))
+           (str (get dictionary (get-prefix-number positional-number))
                 " "
                 (get number-levels (count positional-number)))))
        number-sequence))
+
 
 
 
