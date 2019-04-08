@@ -27,6 +27,11 @@
     (filter #(not= \0 (first %)) number-string)))
 
 
+(defn rest-as-string
+  [number]
+  ^:helper
+  (apply str (rest number)))
+
 
 (defn parse-number
   "A rather brute force approach to parsing the sequence of numbers
