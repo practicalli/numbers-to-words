@@ -60,6 +60,13 @@
       (= 9 size)  [(str (first number-string)) "x00 x000000"]
       (= 10 size) [(str (first number-string)) "x000000000"])))
 
+
+
+(defn parse-number
+  [number-string]
+  [])
+
+
 (defn number-sequence
   "Convert a number into a sequence of numbers that also represent the
     number level

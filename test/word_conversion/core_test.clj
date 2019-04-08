@@ -21,6 +21,9 @@
     (is (= ["2000"]     (sut/number-sequence 2000)))
     (is (= ["2000" "1"] (sut/number-sequence 2001))))
 
+  ;; 2001 probably should be "2" "x000" "1"
+
+
   (testing "Convert sequences of numbers to words"
     (is (= ["zero"]
            (sut/word-sequence british-english-dictionary ["0"])))
@@ -41,5 +44,16 @@
     (is (= ["one thousand"]
            (sut/word-sequence british-english-dictionary ["1000"])))
     (is (= ["one thousand" "one"]
-           (sut/word-sequence british-english-dictionary ["1000" "1"])))))
+           (sut/word-sequence british-english-dictionary ["1000" "1"])))
+    )
+
+  (testing "Parsing a number into a sequence of numbers"
+    (is (= ["0"],
+           (sut/parse-number ["0"])))
+    (is (= ["20" "1"],
+           (sut/parse-number ["21"])))
+    (is (= ["1" "x00"],
+           (sut/parse-number ["100"])))
+    (is (= ["10" "x000" "5" "x00" "40" "5"],
+           (sut/parse-number ["10545"])))))
 

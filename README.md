@@ -77,7 +77,7 @@ Insert `hundred`, `thousand`, and `million` number scale names into the words.
 Parse a collection of words inserting `and` at the appropriate point in the sentence.  The rules seem to be positional, so we can just process the word strings for the correct places to insert `and`.
 
 The rules seem to be:
-- numbers between 101 and 999 have and after the first number (or before the last two numbers).
+- numbers between 101 and 999 have `and` after the first number (or before the last two numbers).
 - the above rule should be applied all at each number scale for numbers larger than 1001
 
 
@@ -98,7 +98,14 @@ If we took each digit in the original number and converted it to its representat
 
 For example, if the original number is 12345, then we would first generate a sequence of `[10000 2000 300 40 5]`.
 
-This approach seems to be pretty obvious now I thought about it.
+This approach seems to be pretty obvious, although we still need to group along number levels, for numbers such as 124,110 (One hundred and twenty four thousand, one hundred and ten)
+
+
+#### Break down numbers into their smallest parts
+
+Replacing the whole number with a value to represent each digit is close to how I want to solve this problem.  However, for larger numbers they still need to be broken down further and have some notation to represent their number level.  Then it is just a simple matter of using a dictionary to map over the individual numbers and levels to convert it to words.
+
+Some post processing on the converted sequence adds grammar correction to the words and gives a sentence by injecting `and` at the relevant place.  This seems to be after any instance of `hundred` which is followed by another number.
 
 
 ## Interesting functions to consider
