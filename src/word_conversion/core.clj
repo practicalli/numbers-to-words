@@ -723,3 +723,14 @@
                (repeat (- size position) "0")))
       index)) )
 
+
+
+;; cl-format
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+#_(require '[clojure.pprint :refer [cl-format]])
+
+#_(defn int-word [n] (cl-format nil "~r" n))
+
+#_(int-word 23010)
+;; => "twenty-three thousand, ten"
