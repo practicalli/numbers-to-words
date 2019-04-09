@@ -104,7 +104,7 @@
                    (if (and (= (first sequence) "hundred")
                             (not (nil? (second sequence))))
                      "and"
-                     ""))))))
+                     nil))))))
 
 (clojure.string/join
   " "
@@ -128,6 +128,11 @@
          (numbers->words dictionary)
          andify-sentence
          (clojure.string/join " ")))
+
+
+;; str makes nil disappear
+(str "Hello" nil)
+;; => "Hello"
 
 
 ;; Depreciated functions
