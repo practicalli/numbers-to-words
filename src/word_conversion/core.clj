@@ -106,22 +106,28 @@
                      "and"
                      ""))))))
 
-(andify-sentence
-  (numbers->words british-english-dictionary (parse-number "12345")))
-;; => ["twelve" "" "thousand" "" "three" "" "hundred" "and" "forty" "" "five" ""]
+(clojure.string/join
+  " "
+  (andify-sentence
+    (numbers->words british-english-dictionary (parse-number "12345"))))
+
 
 
 (defn speak-number-as-words
   [dictionary number]
-  (andify-sentence
-    (numbers->words dictionary (parse-number number))))
+  (clojure.string/join
+    " "
+    (andify-sentence
+      (numbers->words dictionary (parse-number (str number))))))
 
 #_(defn speak-number-as-words
     [dictionary number]
     (->> number
+         str
          parse-number
          (numbers->words dictionary)
-         andify-sentence))
+         andify-sentence
+         (clojure.string/join " ")))
 
 
 ;; Depreciated functions
