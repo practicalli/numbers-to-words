@@ -658,3 +658,68 @@
 ;; => 2
 
 
+
+
+;; Abstractions - map-indexed
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; alternative approach for positional-number-string
+
+
+(map-indexed (fn [index item] [index item]) "12345")
+;; => ([0 \1] [1 \2] [2 \3] [3 \4] [4 \5])
+
+(map-indexed (fn [index item] [(inc index) item]) "12345")
+;; => ([1 \1] [2 \2] [3 \3] [4 \4] [5 \5])
+
+
+(map-indexed (fn [index item] [item (inc index)]) "12345")
+;; => ([\1 1] [\2 2] [\3 3] [\4 4] [\5 5])
+
+;; now the position is associated, we can use that to pad numbers
+;; if we count the size of the number string, we can subtract
+;; the position from the count and add that many zeros to the end of the number
+
+
+(map (fn [[item index]] [item (- 5 index)])
+     '([\1 1] [\2 2] [\3 3] [\4 4] [\5 5]))
+;; => ([\1 4] [\2 3] [\3 2] [\4 1] [\5 0])
+
+
+;; expand on this example as the basis of defining a function
+(let [number "12345"
+      size   (count number)
+      index  (map-indexed (fn [index item] [item (inc index)]) number)]
+  (map
+    (fn [[digit position]]
+      [digit (- size position)])
+    index))
+;; => ([\1 4] [\2 3] [\3 2] [\4 1] [\5 0])
+
+
+;; create the padding using repeat (join the stings after)
+(take 4 (repeat "0"))
+;; => ("0" "0" "0" "0")
+
+
+(let [number "12345"
+      size   (count number)
+      index  (map-indexed (fn [index item] [item (inc index)]) number)]
+  (map
+    (fn [[digit position]]
+
+      (apply str digit
+             (repeat (- size position) "0")))
+    index))
+
+
+(defn positional-number-string-map-index
+  [number-string]
+  (let [size  (count number-string)
+        index (map-indexed (fn [index item] [item (inc index)]) number-string)]
+    (map
+      (fn [[digit position]]
+
+        (apply str digit
+               (repeat (- size position) "0")))
+      index)) )
+
