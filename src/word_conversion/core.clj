@@ -3,11 +3,20 @@
 
 
 
-(defn character->number-word
   " "
+
+
+(defn character->number-word
+  "Convert a sequence of numbers to their word equivalents in a given
+  dictionary
+
+  Arguments: hash-map dictionary, vector of strings (representing numbers)
+  Return: Sequence of strings (each string is a word representing a number)"
+
   [dictionary character]
 
-  character)
+  (get dictionary character))
+
 
 (defn partition-number-string
   "Partition a string representing a whole number into groups
