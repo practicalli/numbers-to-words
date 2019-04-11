@@ -2,6 +2,13 @@
   (:require [word-conversion.dictionaries :as dictionary]))
 
 
+
+(defn character->number-word
+  " "
+  [dictionary character]
+
+  character)
+
 (defn partition-number-string
   "Partition a string representing a whole number into groups
   (group-size of 3 to represent how we speak numbers).  Grouping

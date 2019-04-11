@@ -1,7 +1,7 @@
 (ns word-conversion.core-test
   (:require [clojure.test :refer :all]
             [word-conversion.core :as sut]
-            [word-conversion.dictionaries :refer [british-english-dictionary]]))
+            [word-conversion.dictionaries :as dictionary]))
 
 ;; Testing approach
 ;; `deftest` each public function in a namespace
@@ -51,4 +51,23 @@
     (is (thrown? java.lang.AssertionError
            (sut/partition-number-string "-1"))
         "Defensive: checking for out of bounds handling")))
+
+(deftest- character->number-word-test
+  (testing "Edge cases"
+    (is (= "zero"
+           (sut/character->number-word dictionary/digit->word \0))
+        "Edge case - lower bound test for single character")
+    (is (= "nine"
+           (sut/character->number-word dictionary/digit->word \9))
+        "Edge case - upper bound test for single character")))
+
+
+(deftest development-unit-tests
+  "Tests created to develop the solution.
+  These are testing the actual implementation of the algorithms uses,
+  so should eventually be replaced by namespace api tests which test
+  the intent and context of the namespace and not a specific implementation."
+
+  (partition-number-string-test)
+  (character->number-word-test))
 
