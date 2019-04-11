@@ -62,6 +62,36 @@
         "Edge case - upper bound test for single character")))
 
 
+(deftest- character-sequence->word-sequence-test
+    "Test the conversion of a sequence of characters (\3 \2 \1) to
+   a sequence of strings of number words (three twenty one)."
+
+  (testing "Digits to number words"
+    (is (= '("zero")
+           (sut/character-sequence->word-sequence dictionary/digit->word '(\0))))
+    (is (= '("one")
+           (sut/character-sequence->word-sequence dictionary/digit->word '(\1)))))
+
+  (testing "Tens to number words"
+    (is (= '("ten")
+           (sut/character-sequence->word-sequence dictionary/digit->word '(\1 \0))))
+    (is (= '("eleven")
+           (sut/character-sequence->word-sequence dictionary/digit->word '(\1 \1))))
+    (is (= '("twenty")
+           (sut/character-sequence->word-sequence dictionary/digit->word '(\2 \0))))
+    (is (= '("twenty""one")
+           (sut/character-sequence->word-sequence dictionary/digit->word '(\2 \1))))
+    (is (= '("forty" "two")
+           (sut/character-sequence->word-sequence dictionary/digit->word '(\4 \2)))))
+
+  (testing "Hundreds to number words"
+    (is (= '("one" "five")
+           (sut/character-sequence->word-sequence dictionary/digit->word 105)))
+    (is (= '("one" "twenty" "three")
+           (sut/character-sequence->word-sequence dictionary/digit->word 123)))))
+
+
+
 (deftest development-unit-tests
   "Tests created to develop the solution.
   These are testing the actual implementation of the algorithms uses,
