@@ -70,7 +70,7 @@ Please pay attention to the specific conventions of British English, particularl
 -- apply specific look-up for tens and ones combination
 --- if ten = \0 then lookup digit in digits dictionary (a digit is whole numbers 0-9), dont return anything for tens
 --- if ten = \1 then combine ten and digit and lookup in tens dictionary (could refine this around teens)
---- if ten >= 2 then lookup ten in tens dictionary and digit in digits dictionary
+--- if ten >= \2 then lookup ten in tens dictionary and digit in digits dictionary
 -- lookup hundred in digits dictionary and post-fix hundred
 - apply relevant grammar rules
 -- andify
