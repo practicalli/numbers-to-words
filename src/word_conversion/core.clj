@@ -57,6 +57,8 @@
   - if ten = \1 then combine ten and digit and lookup in tens dictionary (could refine this around teens)
   - if ten >= \2 then lookup ten in tens dictionary and digit in digits dictionary
   - lookup hundred in digits dictionary and post-fix hundred "
-  [dictionary number]
-  number)
+  [dictionary number-sequence]
+  (map #(character->number-word dictionary/digit->word %)
+       number-sequence) )
+
 
