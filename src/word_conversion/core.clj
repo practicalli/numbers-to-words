@@ -3,19 +3,30 @@
 
 
 
+(defn- hyphenated-pound-words
+  "Convert two word numbers to a hyphenated word.
+
+  If the last two numbers of each three groups of numbers in pounds
+  are not zero, then hyphenate those two words.
+
+  Example: 79.00 => seventy-nine
+
+  Arguments: Vector of strings (representing numbers grouped in threes)
+  Return: Vector of strings"
+
+  ^:grammar-rule
+
+  [number-triple]
+
+  number-triple)
+
+
+(defn- andify-word-group
   " "
+  ^:grammar-rule
+  []
+  )
 
-
-(defn character->number-word
-  "Convert a sequence of numbers to their word equivalents in a given
-  dictionary
-
-  Arguments: hash-map dictionary, vector of strings (representing numbers)
-  Return: Sequence of strings (each string is a word representing a number)"
-
-  [dictionary character]
-
-  (get dictionary character))
 
 
 (defn partition-number-string
@@ -36,8 +47,6 @@
 
   [number-string]
 
-  {:pre [(<= 0 (Integer. number-string))]}
-
   (let [group-size  3
         number-size (count number-string)
         quotient    (quot number-size group-size)
@@ -45,10 +54,25 @@
 
     (if (= 0 remainder)
       (partition group-size number-string)
+
+      ;; If the partition is smaller than 3, then pad with \0 to make
+      ;; processing conversion rules consistent for each partition
       (concat
-        (partition-all group-size (take remainder number-string))
+        (map #(concat (repeat (- group-size remainder) \0) %)
+             (partition-all group-size (take remainder number-string)))
         (partition group-size (drop remainder number-string))))))
 
+
+(defn character->number-word
+  "Convert a sequence of numbers to their word equivalents in a given
+  dictionary
+
+  Arguments: hash-map dictionary, vector of strings (representing numbers)
+  Return: Sequence of strings (each string is a word representing a number)"
+
+  [dictionary character]
+
+  (get dictionary character))
 
 
 (defn character-sequence->word-sequence
@@ -57,8 +81,24 @@
   - if ten = \1 then combine ten and digit and lookup in tens dictionary (could refine this around teens)
   - if ten >= \2 then lookup ten in tens dictionary and digit in digits dictionary
   - lookup hundred in digits dictionary and post-fix hundred "
-  [dictionary number-sequence]
-  (map #(character->number-word dictionary/digit->word %)
-       number-sequence) )
+  [dictionary character-sequence]
+  (let [[hundred ten digit] character-sequence]
+
+    (cond
+      (= \0 ten) (map #(character->number-word dictionary/digit->word %) character-sequence)
+      (= \1 ten) (list (character->number-word dictionary/digit->word hundred)
+                       (character->number-word dictionary/teens->word (str ten digit)))
+      :else      (list (character->number-word dictionary/digit->word hundred)
+                       (character->number-word dictionary/tens->word ten)
+                       (character->number-word dictionary/digit->word digit)))))
 
 
+
+(for [x-y  [[4.6 48.9] [3.5 2.2]]
+      :let [co-ord (map str (flatten [4.6 48.9]))]]
+  (clojure.string/join ", " co-ord))
+
+
+
+
+(reduce str (clojure.string/join ", " (flatten [4.6 48.9])))
