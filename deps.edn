@@ -1,0 +1,21 @@
+{:paths
+ ["src" "resources"]
+
+ :deps
+ {org.clojure/clojure {:mvn/version "1.10.1"}}
+
+ :aliases
+ {:test
+  {:extra-paths ["test"]
+   :extra-deps  {org.clojure/test.check {:mvn/version "0.10.1"}}}
+
+  :runner
+  {:extra-deps {com.cognitect/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner"
+                 :sha     "6ec7f8eef509cd14d831e8cc16e856b31327a862"}}
+   :main-opts  ["-m" "cognitect.test-runner"
+                "-d" "test"]}
+
+  :jar
+  {:extra-deps {seancorfield/depstar {:mvn/version "1.1.104"}}
+   :main-opts  ["-m" "hf.depstar.jar" "esrever.jar"]}}}
