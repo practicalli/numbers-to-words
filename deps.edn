@@ -7,7 +7,7 @@
  :aliases
  {:test
   {:extra-paths ["test"]
-   :extra-deps  {org.clojure/test.check {:mvn/version "0.10.1"}}}
+   :extra-deps  {org.clojure/test.check {:mvn/version "1.1.0"}}}
 
   :runner
   {:extra-deps {com.cognitect/test-runner
